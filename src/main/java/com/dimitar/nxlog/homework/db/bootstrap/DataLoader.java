@@ -141,8 +141,14 @@ public class DataLoader implements CommandLineRunner {
                 .module(module3)
                 .build();
 
+        ModuleRoute moduleRoute3= ModuleRoute.builder()
+                .route(route1)
+                .module(module2)
+                .build();
+
         moduleRouteRepository.save(moduleRoute1);
         moduleRouteRepository.save(moduleRoute2);
+        moduleRouteRepository.save(moduleRoute3); // Complete route
 
         log.info("Loading data... done ...");
 
