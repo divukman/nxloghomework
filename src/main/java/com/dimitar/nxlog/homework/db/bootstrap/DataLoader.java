@@ -4,6 +4,7 @@ import com.dimitar.nxlog.homework.db.entities.*;
 import com.dimitar.nxlog.homework.db.entities.Module;
 import com.dimitar.nxlog.homework.db.repositories.AgentRepository;
 import com.dimitar.nxlog.homework.db.repositories.ModuleRepository;
+import com.dimitar.nxlog.homework.db.repositories.ModuleRouteRepository;
 import com.dimitar.nxlog.homework.db.repositories.RouteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ public class DataLoader implements CommandLineRunner {
     private final AgentRepository agentRepository;
     private final ModuleRepository moduleRepository;
     private final RouteRepository routeRepository;
-
+    private final ModuleRouteRepository moduleRouteRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -98,8 +99,49 @@ public class DataLoader implements CommandLineRunner {
                 .type(ModuleType.OUTPUT)
                 .build();
 
+        final Module module3 = Module.builder()
+                .agent(agent1)
+                .name("Module #3")
+                .type(ModuleType.EXTENSION)
+                .build();
+
+        final Module module4 = Module.builder()
+                .agent(agent2)
+                .name("Module #4")
+                .type(ModuleType.INPUT)
+                .build();
+
+        final Module module5 = Module.builder()
+                .agent(agent1)
+                .name("Module #5")
+                .type(ModuleType.INPUT)
+                .build();
+
+        final Module module6 = Module.builder()
+                .agent(agent1)
+                .name("Module #6")
+                .type(ModuleType.PROCESSOR)
+                .build();
+
         moduleRepository.save(module1);
         moduleRepository.save(module2);
+        moduleRepository.save(module3);
+        moduleRepository.save(module4);
+        moduleRepository.save(module5);
+        moduleRepository.save(module6);
+
+        ModuleRoute moduleRoute1 = ModuleRoute.builder()
+                .route(route1)
+                .module(module1)
+                .build();
+
+        ModuleRoute moduleRoute2 = ModuleRoute.builder()
+                .route(route1)
+                .module(module3)
+                .build();
+
+        moduleRouteRepository.save(moduleRoute1);
+        moduleRouteRepository.save(moduleRoute2);
 
         log.info("Loading data... done ...");
     }
