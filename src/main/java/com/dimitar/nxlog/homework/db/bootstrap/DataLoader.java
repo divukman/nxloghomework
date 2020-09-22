@@ -156,25 +156,31 @@ public class DataLoader implements CommandLineRunner {
                 .module(module3) // EXTENSION
                 .build();
 
+        ModuleRoute moduleRoute6 = ModuleRoute.builder()
+                .route(route1)
+                .module(module6) // PROCESSOR
+                .build();
+
         moduleRouteRepository.save(moduleRoute1);
         moduleRouteRepository.save(moduleRoute2);
         moduleRouteRepository.save(moduleRoute3); // Complete route
         moduleRouteRepository.save(moduleRoute4);
         moduleRouteRepository.save(moduleRoute5);
+        moduleRouteRepository.save(moduleRoute6);
 
         log.info("Loading data... done ...");
 
-        Set<Long> routes = moduleRepository.getRoutes();
+        System.out.println("Getting modules for completed routes for Agent #1");
 
-        log.info("Getting modules");
-        List<Module> modules = moduleRepository.getModulesIncludedInCompleteRoutes2(agent1.getId());
+        Set<Module> modules = moduleRepository.getModulesIncludedInCompleteRoutes2(agent1.getId());
 
-        for (Module module : modules) {
-            log.info(module.getName() + " - " + module.getAgent().getName() + " - " + module.getType());
-        }
+        System.out.println("HQL version:");
+        System.out.println("----------------------------------------------------------------------");
+        modules.forEach(System.out::println);
+        System.out.println("----------------------------------------------------------------------");
 
-
-        final Set<Module> hashSet = hibernateRepository.getModulesIncludedInCompleteRoutes(1L);
+        final Set<Module> hashSet = hibernateRepository.getModulesIncludedInCompleteRoutes(agent1.getId());
+        System.out.println("SQL version:");
         System.out.println("----------------------------------------------------------------------");
         hashSet.forEach(System.out::println);
         System.out.println("----------------------------------------------------------------------");
