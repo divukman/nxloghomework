@@ -35,4 +35,11 @@ public class Agent extends AbstractEntity {
     @OneToMany(mappedBy = "agent", cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(FetchMode.SUBSELECT)
     protected Set<Module> modules = new LinkedHashSet<>();
+
+    @Override
+    public String toString() {
+        return "Agent{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

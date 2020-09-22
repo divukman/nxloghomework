@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -132,35 +133,48 @@ public class DataLoader implements CommandLineRunner {
 
         ModuleRoute moduleRoute1 = ModuleRoute.builder()
                 .route(route1)
-                .module(module1)
+                .module(module1) // INPUT
                 .build();
 
         ModuleRoute moduleRoute2 = ModuleRoute.builder()
                 .route(route1)
-                .module(module3)
+                .module(module3) // EXTENSION
                 .build();
 
-        ModuleRoute moduleRoute3= ModuleRoute.builder()
+        ModuleRoute moduleRoute3 = ModuleRoute.builder()
                 .route(route1)
-                .module(module2)
+                .module(module2) // OUTPUT
+                .build();
+
+        ModuleRoute moduleRoute4 = ModuleRoute.builder()
+                .route(route2)
+                .module(module1) // INPUT
+                .build();
+
+        ModuleRoute moduleRoute5 = ModuleRoute.builder()
+                .route(route3)
+                .module(module3) // EXTENSION
                 .build();
 
         moduleRouteRepository.save(moduleRoute1);
         moduleRouteRepository.save(moduleRoute2);
         moduleRouteRepository.save(moduleRoute3); // Complete route
+        moduleRouteRepository.save(moduleRoute4);
+        moduleRouteRepository.save(moduleRoute5);
 
         log.info("Loading data... done ...");
 
-        log.info("Getting modules");
-        Set<Module> modules = moduleRepository.getModulesIncludedInCompleteRoutes(agent1.getId());
+        Set<Long> routes = moduleRepository.getRoutes();
 
-        for (Module module: modules) {
-            log.info(module.getName() + " - " + module.getAgent().getName());
+        log.info("Getting modules");
+        List<Module> modules = moduleRepository.getModulesIncludedInCompleteRoutes2(agent1.getId());
+
+        for (Module module : modules) {
+            log.info(module.getName() + " - " + module.getAgent().getName() + " - " + module.getType());
         }
 
 
-
-       final Set<Module> hashSet = hibernateRepository.getModulesIncludedInCompleteRoutes(1L);
+        final Set<Module> hashSet = hibernateRepository.getModulesIncludedInCompleteRoutes(1L);
         System.out.println("----------------------------------------------------------------------");
         hashSet.forEach(System.out::println);
         System.out.println("----------------------------------------------------------------------");
