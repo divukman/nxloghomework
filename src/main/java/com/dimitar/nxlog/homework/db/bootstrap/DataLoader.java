@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -144,5 +145,13 @@ public class DataLoader implements CommandLineRunner {
         moduleRouteRepository.save(moduleRoute2);
 
         log.info("Loading data... done ...");
+
+        log.info("Getting modules");
+        Set<Module> modules = moduleRepository.getModulesIncludedInCompleteRoutes(agent1.getId());
+
+        for (Module module: modules) {
+            log.info(module.getName() + " - " + module.getAgent().getName());
+        }
+
     }
 }

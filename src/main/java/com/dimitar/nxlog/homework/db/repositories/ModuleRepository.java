@@ -7,6 +7,6 @@ import java.util.Set;
 
 public interface ModuleRepository extends JpaRepository<com.dimitar.nxlog.homework.db.entities.Module, Long> {
 
-    //@Query("")
-    //Set<Module> getModulesIncludedInCompleteRoutes(Long agentId);
+    @Query("from Module as module")
+    Set<com.dimitar.nxlog.homework.db.entities.Module> getModulesIncludedInCompleteRoutes(Long agentId);
 }
