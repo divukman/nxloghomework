@@ -1,5 +1,6 @@
 package com.dimitar.nxlog.homework.db.entities;
 
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@Builder
 public class Route extends AbstractEntity {
     @NaturalId
     @ManyToOne(cascade = CascadeType.DETACH)

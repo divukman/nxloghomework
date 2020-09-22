@@ -1,6 +1,6 @@
 package com.dimitar.nxlog.homework.db.entities;
 
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -10,6 +10,9 @@ import java.util.Set;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Agent extends AbstractEntity {
     @Column(name = "name", length = 127, nullable = false, unique = true)
     protected String name;
