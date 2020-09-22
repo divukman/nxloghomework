@@ -19,5 +19,5 @@ public interface ModuleRepository extends JpaRepository<com.dimitar.nxlog.homewo
             "(select mr2.route\n" +
             "from ModuleRoute as mr2\n" +
             "where mr2.module.type = 'OUTPUT')")
-    Set<Module> getModulesIncludedInCompleteRoutes2(Long agentIdParam);
+    Set<Module> getModulesIncludedInCompleteRoutes(Long agentIdParam);
 }

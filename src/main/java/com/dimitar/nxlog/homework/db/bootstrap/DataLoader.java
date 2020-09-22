@@ -172,7 +172,7 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Getting modules for completed routes for Agent #1");
 
-        Set<Module> modules = moduleRepository.getModulesIncludedInCompleteRoutes2(agent1.getId());
+        Set<Module> modules = moduleRepository.getModulesIncludedInCompleteRoutes(agent1.getId());
 
         System.out.println("HQL version:");
         System.out.println("----------------------------------------------------------------------");
