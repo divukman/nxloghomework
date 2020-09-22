@@ -1,8 +1,7 @@
 package com.dimitar.nxlog.homework.db.bootstrap;
 
-import com.dimitar.nxlog.homework.db.entities.Agent;
-import com.dimitar.nxlog.homework.db.entities.AgentType;
-import com.dimitar.nxlog.homework.db.entities.Route;
+import com.dimitar.nxlog.homework.db.entities.*;
+import com.dimitar.nxlog.homework.db.entities.Module;
 import com.dimitar.nxlog.homework.db.repositories.AgentRepository;
 import com.dimitar.nxlog.homework.db.repositories.ModuleRepository;
 import com.dimitar.nxlog.homework.db.repositories.RouteRepository;
@@ -28,43 +27,18 @@ public class DataLoader implements CommandLineRunner {
 
 
         final Agent agent1 = Agent.builder()
-                .name("Fox Mulder")
+                .name("Agent #1")
                 .routes(new LinkedHashSet<>())
                 .type(AgentType.FIELD)
-                .globalConfig("FBI/SkinnersOffice")
+                .globalConfig("config #1")
                 .build();
 
         final Agent agent2 = Agent.builder()
-                .name("Dana Scully")
+                .name("Agent #2")
                 .routes(new LinkedHashSet<>())
                 .type(AgentType.FIELD)
-                .globalConfig("FBI/SkinnersOffice")
+                .globalConfig("config #1")
                 .build();
-
-
-
-
-/*        final Route route2 = Route.builder()
-                .agent(agent1)
-                .name("Field Route No 2")
-                .build();
-
-        final Route route3 = Route.builder()
-                .agent(agent2)
-                .name("Field Route No 3")
-                .build();
-
-        final Route route4 = Route.builder()
-                .agent(agent2)
-                .name("Field Route No 4")
-                .build();*/
-
-
-
-
-
-
-      //  agent1.getRoutes().add(route1);
 
         agentRepository.save(agent1);
         agentRepository.save(agent2);
@@ -72,11 +46,60 @@ public class DataLoader implements CommandLineRunner {
         final Route route1 = Route.builder()
                 .agent(agent1)
                 .priority(10)
-                .name("Field Route No 1")
+                .name("Route #1")
+                .build();
+
+        final Route route2 = Route.builder()
+                .agent(agent1)
+                .priority(20)
+                .name("Route #2")
+                .build();
+
+        final Route route3 = Route.builder()
+                .agent(agent1)
+                .priority(10)
+                .name("Route #3")
+                .build();
+
+        final Route route4 = Route.builder()
+                .agent(agent1)
+                .priority(10)
+                .name("Route #4")
+                .build();
+
+        final Route route5 = Route.builder()
+                .agent(agent2)
+                .priority(10)
+                .name("Route #5")
+                .build();
+
+        final Route route6 = Route.builder()
+                .agent(agent2)
+                .priority(10)
+                .name("Route #6")
                 .build();
 
         routeRepository.save(route1);
+        routeRepository.save(route2);
+        routeRepository.save(route3);
+        routeRepository.save(route4);
+        routeRepository.save(route5);
+        routeRepository.save(route6);
 
+        final Module module1 = Module.builder()
+                .agent(agent1)
+                .name("Module #1")
+                .type(ModuleType.INPUT)
+                .build();
+
+        final Module module2 = Module.builder()
+                .agent(agent1)
+                .name("Module #2")
+                .type(ModuleType.OUTPUT)
+                .build();
+
+        moduleRepository.save(module1);
+        moduleRepository.save(module2);
 
         log.info("Loading data... done ...");
     }

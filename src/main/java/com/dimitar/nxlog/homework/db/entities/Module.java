@@ -1,5 +1,6 @@
 package com.dimitar.nxlog.homework.db.entities;
 
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.NaturalId;
 
@@ -9,6 +10,7 @@ import static javax.persistence.CascadeType.DETACH;
 
 @Entity
 @Data
+@Builder
 public class Module extends AbstractEntity {
     @NaturalId
     @ManyToOne(cascade = DETACH)
