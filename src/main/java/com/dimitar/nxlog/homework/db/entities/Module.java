@@ -1,8 +1,6 @@
 package com.dimitar.nxlog.homework.db.entities;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -10,7 +8,10 @@ import javax.persistence.*;
 import static javax.persistence.CascadeType.DETACH;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Module extends AbstractEntity {
     @NaturalId

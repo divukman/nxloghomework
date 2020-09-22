@@ -9,10 +9,11 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Data
-@Builder
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
+@Builder
 public class Agent extends AbstractEntity {
     @Column(name = "name", length = 127, nullable = false, unique = true)
     protected String name;

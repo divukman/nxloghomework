@@ -1,8 +1,6 @@
 package com.dimitar.nxlog.homework.db.entities;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.NaturalId;
@@ -12,7 +10,10 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Route extends AbstractEntity {
     @NaturalId

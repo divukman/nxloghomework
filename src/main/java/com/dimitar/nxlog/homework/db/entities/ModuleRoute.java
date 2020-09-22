@@ -1,8 +1,6 @@
 package com.dimitar.nxlog.homework.db.entities;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.CascadeType;
@@ -11,7 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class ModuleRoute extends AbstractEntity {
     @NaturalId
