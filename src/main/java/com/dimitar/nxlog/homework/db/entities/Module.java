@@ -13,6 +13,8 @@ import static javax.persistence.CascadeType.DETACH;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode
+@ToString
 public class Module extends AbstractEntity {
     @NaturalId
     @ManyToOne(cascade = DETACH)

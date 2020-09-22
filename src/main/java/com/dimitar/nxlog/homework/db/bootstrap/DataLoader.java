@@ -2,15 +2,13 @@ package com.dimitar.nxlog.homework.db.bootstrap;
 
 import com.dimitar.nxlog.homework.db.entities.*;
 import com.dimitar.nxlog.homework.db.entities.Module;
-import com.dimitar.nxlog.homework.db.repositories.AgentRepository;
-import com.dimitar.nxlog.homework.db.repositories.ModuleRepository;
-import com.dimitar.nxlog.homework.db.repositories.ModuleRouteRepository;
-import com.dimitar.nxlog.homework.db.repositories.RouteRepository;
+import com.dimitar.nxlog.homework.db.repositories.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -22,6 +20,7 @@ public class DataLoader implements CommandLineRunner {
     private final ModuleRepository moduleRepository;
     private final RouteRepository routeRepository;
     private final ModuleRouteRepository moduleRouteRepository;
+    private final HibernateRepository hibernateRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -159,5 +158,11 @@ public class DataLoader implements CommandLineRunner {
             log.info(module.getName() + " - " + module.getAgent().getName());
         }
 
+
+
+       final Set<Module> hashSet = hibernateRepository.getModulesIncludedInCompleteRoutes(1L);
+        System.out.println("----------------------------------------------------------------------");
+        hashSet.forEach(System.out::println);
+        System.out.println("----------------------------------------------------------------------");
     }
 }
