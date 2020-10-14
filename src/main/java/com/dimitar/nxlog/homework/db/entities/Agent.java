@@ -6,6 +6,8 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,6 +37,18 @@ public class Agent extends AbstractEntity {
     @OneToMany(mappedBy = "agent", cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(FetchMode.SUBSELECT)
     protected Set<Module> modules = new LinkedHashSet<>();
+
+
+
+    @ManyToMany(fetch = FetchType.EAGER)//(cascade = CascadeType.DETACH)
+    @JoinTable(
+            name = "NXAgentSubTemplate",
+            joinColumns = @JoinColumn(name = "agent_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "sub_template_id", referencedColumnName = "id"))
+    @OrderColumn
+    private List<AgentTemplate> subTemplates = new LinkedList<>();
+
+
 
     @Override
     public String toString() {

@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -22,6 +19,7 @@ public class DataLoader implements CommandLineRunner {
     private final RouteRepository routeRepository;
     private final ModuleRouteRepository moduleRouteRepository;
     private final HibernateRepository hibernateRepository;
+    private final AgentTemplateRepository agentTemplateRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -184,5 +182,46 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("----------------------------------------------------------------------");
         hashSet.forEach(System.out::println);
         System.out.println("----------------------------------------------------------------------");
+
+
+
+
+
+        /// many to many testing here
+        AgentTemplate agentTemplate1 = new AgentTemplate();
+        agentTemplate1.setDescription("template1");
+
+        AgentTemplate agentTemplate2 = new AgentTemplate();
+        agentTemplate2.setDescription("template2");
+
+       agentTemplateRepository.save(agentTemplate1);
+       agentTemplateRepository.save(agentTemplate2);
+
+        final Agent agent3 = Agent.builder()
+                .name("Agent #3")
+                .routes(new LinkedHashSet<>())
+                .type(AgentType.FIELD)
+                .globalConfig("config #3")
+                .subTemplates(new LinkedList<>())
+                .build();
+
+        agent3.getSubTemplates().add(agentTemplate1);
+        agent3.getSubTemplates().add(agentTemplate2);
+        agentRepository.save(agent3);
+
+
+        System.out.println("Saved templates");
+        //
+
+        // Cant delete without removing references
+        final AgentTemplate fetchedTemplate1 = agentTemplateRepository.findById(agentTemplate1.getId()).get();
+        System.out.println("agent template agents size: " + fetchedTemplate1.getAgents().size());
+
+        for (Agent u : fetchedTemplate1.getAgents()) {
+            u.getSubTemplates().remove(fetchedTemplate1);
+            agentRepository.save(u);
+        }
+        agentTemplateRepository.delete(agentTemplate1);
+       //agentRepository.delete(agent3);
     }
 }
